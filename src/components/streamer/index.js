@@ -2,9 +2,11 @@ import React, { Component } from "react";
 import { withRouter } from "react-router-dom";
 import MainLayout from "../layout";
 import { getUserChannels, searchChannels } from "../../utils/twitch-api";
+import { TWITCH_EMBED_URL } from "../../utils/constants";
 
-const TWITCH_EMBED_URL = "https://embed.twitch.tv/embed/v1.js";
-
+/**
+ *  ==========  EMBED STREAMING SCREEN ===============
+ */
 class Streamer extends Component {
   state = {
     userChannels: [],
@@ -12,6 +14,7 @@ class Streamer extends Component {
     searchChannel: ""
   };
   player = null;
+
   componentDidMount = async () => {
     const script = document.createElement("script");
     script.setAttribute("src", TWITCH_EMBED_URL);
@@ -54,7 +57,7 @@ class Streamer extends Component {
     this.setState({ channel });
   };
   /**
-   *  Get Open channnels
+   *  Get Open channnels by search value
    */
 
   getChannels = async (e, { value }) => {

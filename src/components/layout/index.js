@@ -11,7 +11,12 @@ import {
   Search
 } from "semantic-ui-react";
 import { Link, withRouter } from "react-router-dom";
+
 import { connect } from "react-redux";
+/**
+ *  ==========  APP LAYOUT  ===============
+ */
+
 const FixedMenuLayout = ({
   children,
   channel,

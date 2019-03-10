@@ -3,7 +3,7 @@ import queryString from "query-string";
 import { camelCaseToUnderscore } from "./functions";
 import { getUserAccessToken, getUser } from "./functions";
 const twitchService = `https://id.twitch.tv/oauth2`;
-const twitchServiceAuth = `//api.twitch.tv/kraken/oauth2`;
+const twitchServiceAuth = `https://api.twitch.tv/kraken`;
 /**
  *  Get Env variables for secrets
  */
@@ -52,7 +52,7 @@ export const getLoginUrl = () => {
     scope: "user_read user_follows_edit channel_read"
   });
 
-  return `${twitchServiceAuth}/authorize?${stringifiedPayload}`;
+  return `${twitchServiceAuth}/oauth2/authorize?${stringifiedPayload}`;
 };
 
 /**
@@ -85,7 +85,7 @@ export const getUserChannels = async () => {
     loadingText: `Getting ${login} Channels...`,
     apiOptions: {
       method: "get",
-      url: `https://api.twitch.tv/kraken/users/${user_id}/follows/channels`,
+      url: `${twitchServiceAuth}/users/${user_id}/follows/channels`,
       headers: {
         Accept: "application/vnd.twitchtv.v5+json",
         "Client-ID": clientCredentials.clientId
@@ -95,7 +95,7 @@ export const getUserChannels = async () => {
 };
 
 /**
- *  Get Channels
+ *  Get search Channels . Free text search
  */
 
 export const searchChannels = async payLoad => {
@@ -105,10 +105,9 @@ export const searchChannels = async payLoad => {
     loadingText: `Getting Channels...`,
     apiOptions: {
       method: "get",
-      url: `https://api.twitch.tv/kraken/search/channels?${stringifiedPayload}`,
+      url: `${twitchServiceAuth}/search/channels?${stringifiedPayload}`,
       headers: {
         Accept: "application/vnd.twitchtv.v5+json",
-        // Authorization: `OAuth ${getUserAccessToken()}`,
         "Client-ID": clientCredentials.clientId
       }
     }

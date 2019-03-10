@@ -1,9 +1,12 @@
 import React, { Component } from "react";
-import "./App.css";
 import Login from "./components/authentication";
 import { Route, Redirect } from "react-router-dom";
 import Streamer from "./components/streamer";
 import * as authService from "./utils/auth";
+
+/**
+ *  Main Application Components, router-outlet for views
+ */
 
 class App extends Component {
   state = {

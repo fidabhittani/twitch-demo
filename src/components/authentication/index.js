@@ -15,13 +15,19 @@ import { getAccessToken, getLoginUrl } from "../../utils/twitch-api";
 import { withRouter, Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 import * as authService from "../../utils/auth";
+
+/**
+ *  ==========  LOGIN SCREEN AND PROCESS LOGIN WITH TWITCH ===============
+ */
+
 class LoginForm extends Component {
-  /**
-   *  Component Did mount
-   */
   state = {
     loginStatus: false
   };
+
+  /**
+   *  Component Did mount
+   */
 
   componentDidMount = async () => {
     const { code } = queryString.parse(this.props.location.search);

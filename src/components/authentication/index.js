@@ -15,7 +15,7 @@ import { getAccessToken, getLoginUrl } from "../../utils/twitch-api";
 import { withRouter, Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 import * as authService from "../../utils/auth";
-
+import { isLoading } from "../../actions";
 /**
  *  ==========  LOGIN SCREEN AND PROCESS LOGIN WITH TWITCH ===============
  */
@@ -46,6 +46,16 @@ class LoginForm extends Component {
       }
     }
   };
+  /**
+   *  Iniate Login
+   */
+
+   initLogin = ()=>{
+     const { isLoading } = this.props;
+     isLoading && isLoading(true, "Signing In")
+     window.location.href = getLoginUrl()
+   }
+
 
   render() {
     const { loginStatus } = this.state;
@@ -96,7 +106,7 @@ class LoginForm extends Component {
                     color="teal"
                     fluid
                     size="large"
-                    onClick={() => (window.location.href = getLoginUrl())}
+                    onClick={this.initLogin}
                   >
                     {loading ? "Signing In..." : "SignIn"}
                   </Button>
@@ -118,4 +128,4 @@ export default connect(state => {
     loading,
     loadingText
   };
-})(withRouter(LoginForm));
+}, {isLoading})(withRouter(LoginForm));

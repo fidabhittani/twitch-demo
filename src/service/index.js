@@ -9,7 +9,7 @@
 import axios from "axios";
 import { isLoading, isMessage } from "../actions";
 import store from "../store";
-
+import { clearToken } from "../utils/functions";
 /**
  * request service wrapped with axios
  * @param params
@@ -49,10 +49,13 @@ export const request = async params => {
         type: "error"
       })
     );
+    if (data.status === 401) {
+      clearToken();
+    }
 
     setTimeout(() => {
-      store.dispatch(isMessage({}));
-    }, 2000);
+      // store.dispatch(isMessage({}));
+    }, 3000);
     return error;
   } finally {
     /**

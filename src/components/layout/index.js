@@ -4,13 +4,15 @@ import {
   Header,
   Menu,
   Segment,
-  Label,
   Grid,
-  Icon,
+  List,
+  Image,
   Message,
-  Search
+  Search,
+  Label,
+  Icon
 } from "semantic-ui-react";
-import { Link, withRouter } from "react-router-dom";
+import { withRouter } from "react-router-dom";
 
 import { connect } from "react-redux";
 /**
@@ -28,7 +30,7 @@ const FixedMenuLayout = ({
   history,
   message: { message: errorMessage }
 }) => (
-  <Container style={{ marginTop: "5em" }}>
+  <Container style={{ marginTop: "5em" }} stretched>
     {errorMessage && (
       <Message negative>
         <Message.Header>Problem(s)</Message.Header>
@@ -38,33 +40,38 @@ const FixedMenuLayout = ({
 
     <Grid columns="equal">
       <Grid.Row>
-        <Grid.Column width={4}>
+        <Grid.Column width={5}>
           <Grid.Column>
-            <Header as="h5">User follows</Header>
-            <Menu fluid vertical tabular>
-              {userChannels &&
-                userChannels.map((chan, i) => {
-                  return (
-                    <React.Fragment key={`key-${i}`}>
-                      <Link to={`/streamer/${chan.channel.name}`}>
-                        <Menu.Item
-                          name={chan.channel.display_name}
-                          as={"a"}
-                          active={channel === chan.channel.name}
-                        >
-                          <Label color="teal">
-                            {chan.channel.views}&nbsp;&nbsp; <Icon name="eye" />
+            <Segment inverted>
+              <Header as="h5">User follows</Header>
+              <List selection verticalAlign="middle" inverted>
+                {userChannels &&
+                  userChannels.map((chan, i) => {
+                    return (
+                      <List.Item
+                        description={chan.channel.description}
+                        onClick={() =>
+                          history.push(`/streamer/${chan.channel.name}`)
+                        }
+                        active={channel === chan.channel.name}
+                      >
+                        <Image avatar src={chan.channel.profile_banner} />
+                        <List.Content>
+                          <List.Header>{chan.channel.display_name}</List.Header>
+                        </List.Content>
+                        <List.Content floated="right">
+                          <Label color="olive" size={"mini"}>
+                            {chan.channel.views} <Icon name="eye" />
                           </Label>
-                          {chan.channel.display_name}
-                        </Menu.Item>
-                      </Link>
-                    </React.Fragment>
-                  );
-                })}
-            </Menu>
+                        </List.Content>
+                      </List.Item>
+                    );
+                  })}
+              </List>
+            </Segment>
           </Grid.Column>
           <Grid.Column>
-            <Segment style={{ marginTop: "2em" }}>
+            <Segment style={{ marginTop: "2em" }} inverted>
               <Header as="h5">Search Channels</Header>
 
               <Search
@@ -81,8 +88,8 @@ const FixedMenuLayout = ({
           </Grid.Column>
         </Grid.Column>
 
-        <Grid.Column width={12} stretched>
-          <Segment>
+        <Grid.Column width={11} stretched>
+          <Segment inverted>
             <Menu fixed="top" inverted>
               <Container>
                 <Menu.Item as="a" header>

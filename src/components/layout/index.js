@@ -40,7 +40,7 @@ const FixedMenuLayout = ({
 
     <Grid columns="equal">
       <Grid.Row>
-        <Grid.Column width={5}>
+        <Grid.Column mobile={16} computer={5}>
           <Grid.Column>
             <Segment inverted>
               <Header as="h5">User follows</Header>
@@ -88,7 +88,7 @@ const FixedMenuLayout = ({
           </Grid.Column>
         </Grid.Column>
 
-        <Grid.Column width={11} stretched>
+        <Grid.Column mobile={16} computer={11}>
           <Segment inverted>
             <Menu fixed="top" inverted>
               <Container>
